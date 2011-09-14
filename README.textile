@@ -25,12 +25,12 @@ I assume github is in your gem sources. You may need @activesupport@ and @active
 Note: On debian/ubuntu libopenssl-ruby is required.
 
 h4. Install from this repository:
-
+<pre>
   $ git clone git@github.com:vanits/mite.cmd.git
   $ cd mide.cmd
   $ gem build mite.cmd.gemspec
   $ gem install mite.cmd-0.1.10.gem
-
+</pre>
 h3. After installation instructions:
 
 You'll need to configure the client prior using it.
