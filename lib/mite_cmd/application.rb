@@ -53,7 +53,7 @@ module MiteCmd
         end
         
       elsif @arguments.first == 'start'
-        if time_entry = Mite::TimeEntry.first(:params => {:at => 'today'})
+        if time_entry = Mite::TimeEntry.first(:params => {:at => 'today', :user_id => 'current'})
           time_entry.start_tracker
           tell time_entry.inspect
         else
@@ -61,9 +61,9 @@ module MiteCmd
         end
 
       elsif @arguments.first == 'note'
-        if time_entry = Mite::TimeEntry.first(:params => {:at => 'today'})
+        if time_entry = Mite::TimeEntry.first(:params => {:at => 'today', :user_id => 'current'})
           @arguments.shift
-          time_entry.note = [time_entry.note, *@arguments].compact.join(' ')
+          time_entry.note = [time_entry.note, *@arguments].compact.join("\n")
           time_entry.save
           tell time_entry.inspect
         end
@@ -85,7 +85,7 @@ module MiteCmd
         end
         time_entry = Mite::TimeEntry.create attributes
         time_entry.start_tracker if start_tracker
-        tell time_entry.inspect
+        #tell time_entry.inspect
         
       elsif @arguments.size == 0
         tell Mite::Tracker.current ? Mite::Tracker.current.inspect : flirt
