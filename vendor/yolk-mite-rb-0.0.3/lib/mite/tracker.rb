@@ -18,21 +18,17 @@ class Mite::Tracker < Mite::Base
   end
   
   def start
-    response = connection.put(path, encode, self.class.headers)
+    response = connection.put(element_path(prefix_options), encode, self.class.headers)
     load(self.class.format.decode(response.body)["tracking_time_entry"])
     response.is_a?(Net::HTTPSuccess) ? self : false
   end
   
   def stop
-    connection.delete(path, self.class.headers).is_a?(Net::HTTPSuccess) ? self : false
+    connection.delete(element_path, self.class.headers).is_a?(Net::HTTPSuccess) ? self : false
   end
   
   def time_entry
     Mite::TimeEntry.find(id)
-  end
-
-  def path
-    "/tracker/#{id}.json"
   end
   
 end
